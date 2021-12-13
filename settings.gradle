@@ -1,0 +1,3 @@
+rootProject.name = 'change-data-capture-test'
+
+include 'cdc-core'

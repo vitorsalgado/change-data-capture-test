@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  cdc:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    container_name: cdc
+
+  postgres:
+    image: debezium/postgres
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - cdc-data:/data/postgres
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+
+volumes:
+  cdc-data:

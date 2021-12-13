@@ -1,0 +1,8 @@
+tasks.jar {
+  manifest {
+    attributes["Main-Class"] = "org.example.MainKt"
+  }
+}
+
+dependencies {
+}

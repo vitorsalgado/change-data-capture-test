@@ -1,3 +1,21 @@
+.gradle
+build/
+
+# Ignore Gradle GUI config
+gradle-app.setting
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+gradle.properties
+
+# Cache of project
+.gradletasknamecache
+
+# # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
+# gradle/wrapper/gradle-wrapper.properties
+
+### Kotlin template
 # Compiled class file
 *.class
 
@@ -21,3 +39,25 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+.DS_Store
+
+/out/
+/bin/
+gen/
+
+*.classpath
+*.project
+*.settings
+
+infer-out/
+
+# IDEs
+.vscode/
+.idea/
+
+# Dev
+.sdkmanrc
+
+# Project
+.data/

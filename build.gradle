@@ -1,0 +1,52 @@
+plugins {
+    id "idea"
+    id "org.jetbrains.kotlin.jvm" version "1.6.0" apply false
+    id "java"
+}
+
+apply from: "dependencies.gradle"
+
+allprojects {
+    group "org.example"
+    version "1.0-SNAPSHOT"
+
+    repositories {
+        mavenCentral()
+    }
+}
+
+subprojects {
+    apply plugin: "kotlin"
+    apply plugin: "java"
+
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+
+    tasks.withType(JavaCompile) { compileTask ->
+        sourceCompatibility = "11"
+        targetCompatibility = "11"
+        options.encoding = 'UTF-8'
+        options.deprecation = true
+        options.compilerArgs += ["-Xlint:-deprecation", "-Xlint:unchecked", "-parameters"]
+    }
+
+    test {
+        useJUnitPlatform()
+
+        testLogging {
+            events "passed", "skipped", "failed"
+            showStackTraces true
+            exceptionFormat "full"
+        }
+    }
+
+    // Common dependencies shared by all modules
+    // --
+    dependencies {
+        implementation libs.kotlinStdLib
+        implementation libs.kotlinReflection
+
+        testImplementation libs.junitJupiterApi
+        testRuntimeOnly libs.junitJupiterEngine
+    }
+}

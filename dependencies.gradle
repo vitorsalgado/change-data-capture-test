@@ -1,0 +1,30 @@
+// Global shared var
+// --
+ext {
+  versions = [:]
+  libs = [:]
+}
+
+LinkedHashMap<Object, String> versions = [:]
+LinkedHashMap<Object, String> libs = [:]
+
+// Lib Versions
+// --
+versions.junitJupiter = "5.8.2"
+
+// Dependencies
+// --
+libs.junitJupiterApi = "org.junit.jupiter:junit-jupiter-api:${versions.junitJupiter}"
+libs.junitJupiterEngine = "org.junit.jupiter:junit-jupiter-engine:${versions.junitJupiter}"
+libs.kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib"
+libs.kotlinReflection = "org.jetbrains.kotlin:kotlin-reflect"
+
+// Utils
+// --
+static def addRepos(final handler) {
+  handler.mavenCentral()
+}
+
+ext.versions = versions
+ext.libs = libs
+ext.addRepos = this.&addRepos
