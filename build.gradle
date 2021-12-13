@@ -4,7 +4,7 @@ plugins {
     id "java"
 }
 
-apply from: "dependencies.gradle"
+apply from: "deps.gradle"
 
 allprojects {
     group "org.example"

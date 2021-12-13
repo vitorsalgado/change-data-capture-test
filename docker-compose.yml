@@ -1,25 +1,42 @@
 version: '3.8'
 
 services:
+  postgres:
+    image: debezium/postgres:14
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: cdc
+    ports:
+      - "5432:5432"
+    volumes:
+      - cdc-data:/data/postgres
+      - ./data:/docker-entrypoint-initdb.d
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+
+  prest:
+    image: prest/prest:v1
+    environment:
+      PREST_PG_HOST: postgres
+      PREST_PG_USER: postgres
+      PREST_PG_PASS: postgres
+      PREST_PG_DATABASE: cdc
+      PREST_SSL_MODE: disable
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+
   cdc:
     build:
       dockerfile: Dockerfile
       context: .
     container_name: cdc
-
-  postgres:
-    image: debezium/postgres
-    environment:
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_USER: postgres
-    ports:
-      - "5432:5432"
-    volumes:
-      - cdc-data:/data/postgres
-    logging:
-      options:
-        max-size: 10m
-        max-file: "3"
+    depends_on:
+      - postgres
 
 volumes:
   cdc-data:
